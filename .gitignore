@@ -175,13 +175,14 @@ GitHub.sublime-settings
 
 ### VisualStudioCode ###
 .vscode/*
-#!.vscode/settings.json # Removed by hansung
+!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 
 # Added by hansung
+!.vscode/.gitignore
 !.vscode/c_cpp_properties.json
 
 # Local History for Visual Studio Code

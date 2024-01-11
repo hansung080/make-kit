@@ -63,7 +63,4 @@ dkms.conf
 Makefile
 *.stackdump
 
-# Visual Studio Code
-.vscode/settings.json
-
 # End of hansung
