@@ -159,14 +159,14 @@ endif
 .PHONY: clean
 clean:
 	rm -rf $(BUILD_DIR)
-	find $(SRC_ROOT) -name '*.pch' -o -name '*.gch' -o -name '*.stackdump' | xargs rm -f
-	find $(TEST_SRC_ROOT) -name '*.pch' -o -name '*.gch' -o -name '*.stackdump' | xargs rm -f
+	find $(SRC_ROOT) \( -name '*.pch' -o -name '*.gch' -o -name '*.stackdump' \) -exec rm -f {} +
+	find $(TEST_SRC_ROOT) \( -name '*.pch' -o -name '*.gch' -o -name '*.stackdump' \) -exec rm -f {} +
 
 .PHONY: rename-project
 rename-project:
 ifneq ($(__old_pname),)
 ifneq ($(__new_pname),)
-	find test -name '*.c' -o -name '*.h' | xargs sed -i $(if $(IS_MAC),'',) "s:\(^ *# *include *<\)$(__old_pname)/:\1$(__new_pname)/:"
+	find $(TEST_SRC_ROOT) \( -name '*.c' -o -name '*.h' \) -exec sed -i $(if $(IS_MAC),'',) "s:\(^ *# *include *<\)$(__old_pname)/:\1$(__new_pname)/:" {} +
 else
 	@echo >&2 "$(ERROR): argument __new_pname required"
 	@echo >&2 "usage: make rename-project __old_pname=? __new_pname=?"
