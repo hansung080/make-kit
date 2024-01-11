@@ -115,11 +115,8 @@ TEST_TARGET := $(if $(__static),$(ST_TEST_TARGET),$(DY_TEST_TARGET))
 TEST_DEP := $(DEP_DIR)/test_dep.mk
 TEST_CFLAGS := -std=c11 -I$(PROJECT_ROOT)/..
 TEST_LDFLAGS := -L$(LIB_DIR) -l$(patsubst lib%,%,$(DY_LIB_NAME))
-ifeq ($(IS_MAC),true)
-DYLD_LIBRARY_PATH := $(LIB_DIR)
-else
 LD_LIBRARY_PATH := $(LIB_DIR)
-endif
+DYLD_LIBRARY_PATH := $(LIB_DIR)
 
 .PHONY: test-build
 test-build: src-build test-prepare test-dep $(TEST_TARGET)
@@ -237,13 +234,13 @@ var:
 .PHONY: env
 env:
 	@echo "$(call blue,# Environment Variables)"
-	@echo "__args=$(__args);"
-	@echo "__new_pname=$(__new_pname);"
-	@echo "__old_pname=$(__old_pname);"
-	@echo "__static=$(__static);"
 	@echo "__verbose=$(__verbose);"
-	@echo "DYLD_LIBRARY_PATH=$(DYLD_LIBRARY_PATH);"
+	@echo "__args=$(__args);"
+	@echo "__old_pname=$(__old_pname);"	
+	@echo "__new_pname=$(__new_pname);"
+	@echo "__static=$(__static);"
 	@echo "LD_LIBRARY_PATH=$(LD_LIBRARY_PATH);"
+	@echo "DYLD_LIBRARY_PATH=$(DYLD_LIBRARY_PATH);"
 
 ifeq ($(DEP),$(wildcard $(DEP)))
 include $(DEP)

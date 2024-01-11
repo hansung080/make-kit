@@ -40,11 +40,8 @@ DEP := $(DEP_DIR)/dep.mk
 CC := gcc
 CFLAGS := -std=c11
 LDFLAGS :=
-ifeq ($(IS_MAC),true)
-DYLD_LIBRARY_PATH :=
-else
 LD_LIBRARY_PATH :=
-endif
+DYLD_LIBRARY_PATH :=
 MAKE_REC := make -f $(SELF)
 
 .PHONY: build
@@ -98,6 +95,8 @@ TEST_TARGET := $(BIN_DIR)/test-$(TARGET_NAME)
 TEST_DEP := $(DEP_DIR)/test_dep.mk
 TEST_CFLAGS := -std=c11 -I$(PROJECT_ROOT)/..
 TEST_LDFLAGS :=
+LD_LIBRARY_PATH := $(LD_LIBRARY_PATH)
+DYLD_LIBRARY_PATH := $(DYLD_LIBRARY_PATH)
 
 .PHONY: test-build
 test-build: src-build test-prepare test-dep $(TEST_TARGET)
@@ -157,6 +156,7 @@ version:
 .PHONY: var
 var:
 	@echo "$(call blue,# User-defined Variables)"
+	@echo "IS_MAC=$(IS_MAC);"
 	@echo "VERSION=$(VERSION);"
 	@echo "SELF=$(SELF);"
 	@echo "PROJECT_ROOT=$(PROJECT_ROOT);"
@@ -196,12 +196,12 @@ var:
 .PHONY: env
 env:
 	@echo "$(call blue,# Environment Variables)"
-	@echo "__args=$(__args);"
-	@echo "__new_pname=$(__new_pname);"
-	@echo "__old_pname=$(__old_pname);"
 	@echo "__verbose=$(__verbose);"
-	@echo "DYLD_LIBRARY_PATH=$(DYLD_LIBRARY_PATH);"
+	@echo "__args=$(__args);"
+	@echo "__old_pname=$(__old_pname);"	
+	@echo "__new_pname=$(__new_pname);"
 	@echo "LD_LIBRARY_PATH=$(LD_LIBRARY_PATH);"
+	@echo "DYLD_LIBRARY_PATH=$(DYLD_LIBRARY_PATH);"
 
 ifeq ($(DEP),$(wildcard $(DEP)))
 include $(DEP)
