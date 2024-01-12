@@ -1,6 +1,7 @@
-# Makefile for a library project
+# DO NOT EDIT!
+# This makefile is for a library project and can be updated by the 'make update' command.
 
-# Common Variables
+##### Common Variables #####
 S_RESET := \033[0m
 S_RED := \033[0;31m
 S_RED_BOLD := \033[1;31m
@@ -23,7 +24,7 @@ VERSION := 1.0
 SELF := $(firstword $(MAKEFILE_LIST))
 PROJECT_ROOT := $(patsubst %/,%,$(dir $(SELF)))
 
-# Variables & Rules for src
+##### Variables & Rules for src #####
 SRC_ROOT := $(PROJECT_ROOT)/src
 BUILD_DIR := $(PROJECT_ROOT)/build
 ST_OBJ_ROOT := $(BUILD_DIR)/sobj
@@ -100,7 +101,7 @@ endif
 run:
 	@echo >&2 "$(ERROR): cannot run a library project"
 
-# Variables & Rules for test
+##### Variables & Rules for test #####
 TEST_SRC_ROOT := $(PROJECT_ROOT)/test
 TEST_OBJ_ROOT := $(BUILD_DIR)/tobj
 BIN_DIR := $(BUILD_DIR)/bin
@@ -152,18 +153,18 @@ else
 	$(TEST_TARGET) $(__args)
 endif
 
-# Rules for src & test
+##### Rules for src & test #####
 .PHONY: clean
 clean:
 	rm -rf $(BUILD_DIR)
-	find $(SRC_ROOT) \( -name '*.pch' -o -name '*.gch' -o -name '*.stackdump' \) -exec rm -f {} +
-	find $(TEST_SRC_ROOT) \( -name '*.pch' -o -name '*.gch' -o -name '*.stackdump' \) -exec rm -f {} +
+	find $(SRC_ROOT) \( -name '*.[pg]ch' -o -name '*.stackdump' \) -exec rm -f {} +
+	find $(TEST_SRC_ROOT) \( -name '*.[pg]ch' -o -name '*.stackdump' \) -exec rm -f {} +
 
 .PHONY: rename-project
 rename-project:
 ifneq ($(__old_pname),)
 ifneq ($(__new_pname),)
-	find $(TEST_SRC_ROOT) \( -name '*.c' -o -name '*.h' \) -exec sed -i $(if $(IS_MAC),'',) "s:\(^ *# *include *<\)$(__old_pname)/:\1$(__new_pname)/:" {} +
+	find $(TEST_SRC_ROOT) -name '*.[ch]' -exec sed -i $(if $(IS_MAC),'',) "s:\(^ *# *include *<\)$(__old_pname)/:\1$(__new_pname)/:" {} +
 else
 	@echo >&2 "$(ERROR): argument __new_pname required"
 	@echo >&2 "usage: make rename-project __old_pname=? __new_pname=?"

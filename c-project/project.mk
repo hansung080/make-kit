@@ -1,4 +1,4 @@
-# Makefile for each project
+# Edit this makefile for your project.
 
 SELF := $(firstword $(MAKEFILE_LIST))
 PROJECT_ROOT := $(patsubst %/,%,$(dir $(SELF)))
