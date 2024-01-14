@@ -166,11 +166,11 @@ ifneq ($(__new_project),)
 	find $(TEST_SRC_ROOT) -name '*.[ch]' -exec sed -i $(if $(IS_MAC),'',) "s:\(^ *# *include *<\)$(__old_project)/:\1$(__new_project)/:" {} +
 else
 	@echo >&2 "$(ERROR): argument __new_project required"
-	@echo >&2 "usage: make rename-project __old_project=? __new_project=?"
+	@echo >&2 "usage: make rename-project __old_project=<name> __new_project=<name>"
 endif
 else
 	@echo >&2 "$(ERROR): argument __old_project required"
-	@echo >&2 "usage: make rename-project __old_project=? __new_project=?"
+	@echo >&2 "usage: make rename-project __old_project=<name> __new_project=<name>"
 endif
 
 .PHONY: version
