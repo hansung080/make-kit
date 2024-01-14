@@ -133,21 +133,20 @@ endif
 .PHONY: clean
 clean:
 	rm -rf $(BUILD_DIR)
-	find $(SRC_ROOT) \( -name '*.[pg]ch' -o -name '*.stackdump' \) -exec rm -f {} +
-	find $(TEST_SRC_ROOT) \( -name '*.[pg]ch' -o -name '*.stackdump' \) -exec rm -f {} +
+	find $(SRC_ROOT) $(TEST_SRC_ROOT) \( -name '*.[pg]ch' -o -name '*.stackdump' \) -exec rm -f {} +
 
 .PHONY: rename-project
 rename-project:
-ifneq ($(__old_pname),)
-ifneq ($(__new_pname),)
-	find $(TEST_SRC_ROOT) -name '*.[ch]' -exec sed -i $(if $(IS_MAC),'',) "s:\(^ *# *include *<\)$(__old_pname)/:\1$(__new_pname)/:" {} +
+ifneq ($(__old_project),)
+ifneq ($(__new_project),)
+	find $(TEST_SRC_ROOT) -name '*.[ch]' -exec sed -i $(if $(IS_MAC),'',) "s:\(^ *# *include *<\)$(__old_project)/:\1$(__new_project)/:" {} +
 else
-	@echo >&2 "$(ERROR): argument __new_pname required"
-	@echo >&2 "usage: make rename-project __old_pname=? __new_pname=?"
+	@echo >&2 "$(ERROR): argument __new_project required"
+	@echo >&2 "usage: make rename-project __old_project=? __new_project=?"
 endif
 else
-	@echo >&2 "$(ERROR): argument __old_pname required"
-	@echo >&2 "usage: make rename-project __old_pname=? __new_pname=?"
+	@echo >&2 "$(ERROR): argument __old_project required"
+	@echo >&2 "usage: make rename-project __old_project=? __new_project=?"
 endif
 
 .PHONY: version
@@ -199,8 +198,8 @@ env:
 	@echo "$(call blue,# Environment Variables)"
 	@echo "__verbose=$(__verbose);"
 	@echo "__args=$(__args);"
-	@echo "__old_pname=$(__old_pname);"	
-	@echo "__new_pname=$(__new_pname);"
+	@echo "__old_project=$(__old_project);"	
+	@echo "__new_project=$(__new_project);"
 	@echo "LD_LIBRARY_PATH=$(LD_LIBRARY_PATH);"
 	@echo "DYLD_LIBRARY_PATH=$(DYLD_LIBRARY_PATH);"
 
