@@ -2,7 +2,7 @@
 #include <c-project/src/people/bob.h>
 #include "bob.h"
 
-void init_people__bob(test t[], int* n) {
+void init_people__bob(test_t t[], int* n) {
     int i = *n;
     t[i++] = new_test("test/people/bob/test_bob", test_bob);
     *n = i;

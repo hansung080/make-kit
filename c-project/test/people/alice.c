@@ -2,7 +2,7 @@
 #include <c-project/src/people/alice.h>
 #include "alice.h"
 
-void init_people__alice(test t[], int* n) {
+void init_people__alice(test_t t[], int* n) {
     int i = *n;
     t[i++] = new_test("test/people/alice/test_alice", test_alice);
     *n = i;

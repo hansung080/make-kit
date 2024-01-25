@@ -2,7 +2,7 @@
 #include <c-project/src/fruits/banana.h>
 #include "banana.h"
 
-void init_fruits__banana(test t[], int* n) {
+void init_fruits__banana(test_t t[], int* n) {
     int i = *n;
     t[i++] = new_test("test/fruits/banana/test_banana", test_banana);
     *n = i;

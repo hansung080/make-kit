@@ -2,7 +2,7 @@
 #include <c-project/src/fruits/apple.h>
 #include "apple.h"
 
-void init_fruits__apple(test t[], int* n) {
+void init_fruits__apple(test_t t[], int* n) {
     int i = *n;
     t[i++] = new_test("test/fruits/apple/test_apple", test_apple);
     *n = i;

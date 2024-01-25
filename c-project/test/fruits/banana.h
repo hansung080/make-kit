@@ -3,7 +3,7 @@
 
 #include "../test.h"
 
-void init_fruits__banana(test t[], int* n);
+void init_fruits__banana(test_t t[], int* n);
 static bool test_banana();
 
 #endif // __TEST__FRUITS__BANANA_H__

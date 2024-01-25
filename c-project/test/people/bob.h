@@ -3,7 +3,7 @@
 
 #include "../test.h"
 
-void init_people__bob(test t[], int* n);
+void init_people__bob(test_t t[], int* n);
 static bool test_bob();
 
 #endif // __TEST__PEOPLE__BOB_H__
