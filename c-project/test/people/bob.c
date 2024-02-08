@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <c-project/src/people/bob.h>
 #include "bob.h"
 
@@ -25,7 +24,7 @@ bool test_bob() {
         struct case_ c = cases[i];
         int got = bob(c.arg);
         if (got != c.want) {
-            fprintf(stderr, LOG_FAILED": bob(%d) => %d, want %d\n", c.arg, got, c.want);
+            fail("bob(%d) => %d, want %d\n", c.arg, got, c.want);
             return false;
         }
     }

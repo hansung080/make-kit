@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <c-project/src/fruits/banana.h>
 #include "banana.h"
 
@@ -25,7 +24,7 @@ bool test_banana() {
         struct case_ c = cases[i];
         int got = banana(c.arg);
         if (got != c.want) {
-            fprintf(stderr, LOG_FAILED": banana(%d) => %d, want %d\n", c.arg, got, c.want);
+            fail("banana(%d) => %d, want %d\n", c.arg, got, c.want);
             return false;
         }
     }

@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <c-project/src/fruits/apple.h>
 #include "apple.h"
 
@@ -24,7 +23,7 @@ bool test_apple() {
         struct case_ c = cases[i];
         bool got = apple(c.arg);
         if (got != c.want) {
-            fprintf(stderr, LOG_FAILED": apple(%d) => %d, want %d\n", c.arg, got, c.want);
+            fail("apple(%d) => %d, want %d\n", c.arg, got, c.want);
             return false;
         }
     }

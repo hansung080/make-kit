@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <c-project/src/people/alice.h>
 #include "alice.h"
 
@@ -24,10 +23,9 @@ bool test_alice() {
         struct case_ c = cases[i];
         bool got = alice(c.arg);
         if (got != c.want) {
-            fprintf(stderr, LOG_FAILED": alice(%d) => %d, want %d\n", c.arg, got, c.want);
+            fail("alice(%d) => %d, want %d\n", c.arg, got, c.want);
             return false;
         }
     }
-
     return true;
 }

@@ -14,9 +14,9 @@
 #define yellow(text)   S_YELLOW text S_RESET
 #define blue(text)     S_BLUE text S_RESET
 
-#define LOG_ERROR  red_bold("error")
-#define LOG_OK_LOW green("ok")
-#define LOG_OK_UP  green("OK")
-#define LOG_FAILED red("FAILED")
+#define T_ERROR red_bold("error")
+
+void error(const char* format, ...);
+void error_n(const char* format, ...);
 
 #endif // __LOG_H__
