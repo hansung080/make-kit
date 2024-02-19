@@ -1,6 +1,8 @@
 #ifndef __LOG_H__
 #define __LOG_H__
 
+#include <stdio.h>
+
 #define S_RESET    "\033[0m"
 #define S_RED      "\033[0;31m"
 #define S_RED_BOLD "\033[1;31m"
@@ -16,7 +18,7 @@
 
 #define T_ERROR red_bold("error")
 
-void error(const char* format, ...);
-void error_n(const char* format, ...);
+#define error(format, ...)   fprintf(stderr, T_ERROR": "format, ##__VA_ARGS__)
+#define error_n(format, ...) fprintf(stderr, format, ##__VA_ARGS__)
 
 #endif // __LOG_H__
