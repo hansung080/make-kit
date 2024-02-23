@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <stddef.h>
 #include "fruits/apple.h"
 #include "fruits/banana.h"
 #include "people/alice.h"
 #include "people/bob.h"
 
 bool contains(const char* s, const char* keyword) {
-    int i, j, k;
+    size_t i, j, k;
     bool matched;
     for (i = 0; s[i] != '\0'; ++i) {
         if (s[i] == keyword[0]) {
