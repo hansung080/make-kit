@@ -50,7 +50,7 @@ TARGET := $(if $(__static),$(ST_TARGET),$(DY_TARGET))
 DEP := $(DEP_DIR)/dep.mk
 CC := gcc
 CFLAGS := -std=c11
-DY_FLAGS :=
+LDFLAGS :=
 AR := ar
 MAKE_REC := make -f $(SELF)
 
@@ -86,12 +86,12 @@ $(DY_OBJ_ROOT)/%.o: $(SRC_ROOT)/%.c
 
 $(DY_TARGET): $(DY_OBJS)
 ifeq ($(IS_MAC),true)
-	$(CC) -dynamiclib -Wl,-install_name,$(DY_LIB_NAME).$(DY_MAJOR).$(DY_EXT) -o $@ $(DY_FLAGS) $^
+	$(CC) -dynamiclib -Wl,-install_name,$(DY_LIB_NAME).$(DY_MAJOR).$(DY_EXT) -o $@ $(LDFLAGS) $^
 	ln -sf $(DY_LIB_NAME).$(DY_VERSION).$(DY_EXT) $(DY_LIB).$(DY_MAJOR).$(DY_EXT)
 	ln -sf $(DY_LIB_NAME).$(DY_MAJOR).$(DY_EXT) $(DY_LIB).$(DY_EXT)
 	@echo "> $(call blue,build complete): $@"
 else
-	$(CC) -shared -Wl,-soname,$(DY_LIB_NAME).$(DY_EXT).$(DY_MAJOR) -o $@ $(DY_FLAGS) $^
+	$(CC) -shared -Wl,-soname,$(DY_LIB_NAME).$(DY_EXT).$(DY_MAJOR) -o $@ $(LDFLAGS) $^
 	ln -sf $(DY_LIB_NAME).$(DY_EXT).$(DY_VERSION) $(DY_LIB).$(DY_EXT).$(DY_MAJOR)
 	ln -sf $(DY_LIB_NAME).$(DY_EXT).$(DY_MAJOR) $(DY_LIB).$(DY_EXT)
 	@echo "> $(call blue,build complete): $@"
@@ -208,7 +208,7 @@ var:
 	@echo "DEP=$(DEP);"
 	@echo "CC=$(CC);"
 	@echo "CFLAGS=$(CFLAGS);"
-	@echo "DY_FLAGS=$(DY_FLAGS);"
+	@echo "LDFLAGS=$(LDFLAGS);"
 	@echo "AR=$(AR);"
 	@echo "MAKE_REC=$(MAKE_REC);"
 	@echo "TEST_SRC_ROOT=$(TEST_SRC_ROOT);"
